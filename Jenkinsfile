@@ -41,8 +41,7 @@ pipeline {
 		    
             }
           }	 
-      }
-}
+   }
 	  
   stage('Master branch release and tag') {
       when {
