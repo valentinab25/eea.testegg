@@ -66,11 +66,15 @@ pipeline {
  parallel(
           "Release": {
             node(label: 'docker-1.13') {
-		 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'eea.plonebuildout.core']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/eea/eea.plonebuildout.core.git']]])
-   
-		    
-		    
-            }
+		   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'valentina',
+usernameVariable: 'EGGREPO_USERNAME', passwordVariable: 'EGGREPO_PASSWORD']]) {
+                      script{
+                     try {
+                  sh '''docker run -i --name="$BUILD_TAG-gitflow-pr" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_SRC="$GIT_URL" -e EGGREPO_USERNAME="$EGGREPO_USERNAME" -e EGGREPO_PASSWORD="$EGGREPO_PASSWORD" -e GIT_NAME="$GIT_NAME" gitflow'''
+                } finally {
+                  sh '''docker rm -v $BUILD_TAG-gitflow-pr'''
+                   }	    
+		      } } }
           },
 		
           "Tag": {
