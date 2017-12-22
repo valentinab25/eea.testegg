@@ -53,7 +53,7 @@ pipeline {
      steps {
             node(label: 'docker-1.13') {
 		   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'valentina',
-usernameVariable: 'EGGREPO_USERNAME', passwordVariable: 'EGGREPO_PASSWORD'],string(credentialsId: 'GitHubTokentest', variable: 'GITHUB_TOKEN')]) {
+usernameVariable: 'EGGREPO_USERNAME', passwordVariable: 'EGGREPO_PASSWORD'],string(credentialsId: 'TestNewhook', variable: 'GITHUB_TOKEN')]) {
                       script{
 				     try {
 				  sh '''docker run -i --name="$BUILD_TAG-gitflow-pr" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_SRC="$GIT_URL" -e EGGREPO_USERNAME="$EGGREPO_USERNAME" -e EGGREPO_PASSWORD="$EGGREPO_PASSWORD" -e GIT_NAME="$GIT_NAME" -e GIT_VERSIONFILE="$GIT_VERSIONFILE" -e GIT_ORG="$GIT_ORG" -e GIT_TOKEN="$GITHUB_TOKEN" gitflow'''
