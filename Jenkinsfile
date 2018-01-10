@@ -10,9 +10,7 @@ pipeline {
         GIT_HISTORYFILE = "docs/HISTORY.txt"
     }
 
-  stages {
-
-		    
+  stages {		    
 		    
   stage('Pull request checks') {
            when {
