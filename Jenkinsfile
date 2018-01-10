@@ -51,8 +51,8 @@ pipeline {
                 }
             }
   steps {
-        build job: '../eea.docker.kgs/master', parameters: [[$class: 'StringParameterValue', name: 'TARGET_BRANCH', value: 'master']]
-       }
+        build job: '../eea.docker.kgs/master', parameters:string(name: "TARGET_BRANCH", value: "master")
+  }
   }
 		    
 		    
