@@ -43,18 +43,17 @@ pipeline {
           }	 
    }
 
-  stage('Test build job') {  
+ stage('Test build job') {  
 	     when {
                 allOf {
                     environment name: 'CHANGE_ID', value: ''
                     branch 'build'
                 }
             }
-  steps { 
-        build job: '../eea.docker.kgs/master', parameters: parameters: [[$class: 'StringParameterValue', name: 'TARGET_BRANCH', value: 'master']]
-  }
-  }
-		    
+  steps {
+        build job: '../eea.docker.kgs/master', parameters: [[$class: 'StringParameterValue', name: 'TARGET_BRANCH', value: 'master']]
+       }
+}	    
 		    
   stage('Master branch release and tag') {
       when {
